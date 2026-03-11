@@ -90,7 +90,6 @@ void categorizeStudentsByAverage(List<String> students, Map<String, Map<String, 
   final List<String> others = [];
   
   for (var student in students) {
-    if (!grades.containsKey(student)) continue;
     
     double average = calculateAverage(grades[student]!);
     
@@ -114,10 +113,6 @@ void categorizeStudentsByAverage(List<String> students, Map<String, Map<String, 
 }
 
 double calculateAverage(Map<String, int> studentGrades) {
-  if (studentGrades.isEmpty) {
-    return 0.0;
-  }
-  
   int sum = studentGrades.values.reduce((a, b) => a + b);
   return sum / studentGrades.length;
 }
@@ -128,7 +123,7 @@ void countGrades(Map<String, Map<String, int>> grades) {
   
   grades.forEach((student, subjects) {
     subjects.forEach((subject, grade) {
-      gradeCount[grade] = (gradeCount[grade] ?? 0) + 1;
+      gradeCount[grade] += 1;
     });
   });
   
@@ -143,13 +138,13 @@ void studentsWithFivesBySubject(List<String> subjects, Map<String, Map<String, i
     List<String> studentsWithFive = [];
     
     grades.forEach((student, studentGrades) {
-      if (studentGrades.containsKey(subject) && studentGrades[subject] == 5) {
+      if (studentGrades[subject] == 5) {
         studentsWithFive.add(student);
       }
     });
     
     print('$subject:');
-    studentsWithFive.isEmpty ? print('  Нет студентов с оценкой 5') : studentsWithFive.forEach((s) => print('$s'));
+    studentsWithFive.isEmpty ? print('  Нет студентов с оценкой 5') : studentsWithFive.forEach((student) => print('$student'));
   }
 }
 
@@ -161,7 +156,7 @@ void subjectsWithoutTwos(List<String> subjects, Map<String, Map<String, int>> gr
     bool hasTwo = false;
     
     for (var studentGrades in grades.values) {
-      if (studentGrades.containsKey(subject) && studentGrades[subject] == 2) {
+      if (studentGrades[subject] == 2) {
         hasTwo = true;
         break;
       }
@@ -172,7 +167,7 @@ void subjectsWithoutTwos(List<String> subjects, Map<String, Map<String, int>> gr
     }
   }
   
-  withoutTwos.isEmpty ? print('Нет предметов без двоек') : withoutTwos.forEach((s) => print('$s'));
+  withoutTwos.isEmpty ? print('Нет предметов без двоек') : withoutTwos.forEach((student) => print('$student'));
 }
 
 // 5
@@ -186,7 +181,7 @@ void subjectWithMostTwos(List<String> subjects, Map<String, Map<String, int>> gr
   grades.forEach((student, studentGrades) {
     studentGrades.forEach((subject, grade) {
       if (grade == 2) {
-        twoCounts[subject] = (twoCounts[subject] ?? 0) + 1;
+        twoCounts[subject] += 1;
       }
     });
   });
