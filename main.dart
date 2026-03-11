@@ -4,7 +4,7 @@ import 'dart:collection';
 void main() {
   final List<String> students = [
     'Карапетян Ара',
-    'Рындухов Глеб',
+    'Костин Александр',
     'Сивцов Илья',
     'Тупицын Сергей',
     'Москаленко Максим'
@@ -12,47 +12,47 @@ void main() {
 
   final List<String> subjects = [
     'Математика',
-    'Физика',
-    'Программирование',
-    'История',
-    'Английский язык'
+    'БД',
+    'Dart',
+    'Философия',
+    'Психология'
   ];
 
   final Map<String, Map<String, int>> grades = {
     'Карапетян Ара': {
       'Математика': 5,
-      'Физика': 4,
-      'Программирование': 5,
-      'История': 3,
-      'Английский язык': 4
+      'БД': 3,
+      'Dart': 5,
+      'Философия': 4,
+      'Психология': 4
     },
-    'Рындухов Глеб': {
+    'Костин Александр': {
       'Математика': 5,
-      'Физика': 5,
-      'Программирование': 5,
-      'История': 5,
-      'Английский язык': 5
+      'БД': 5,
+      'Dart': 5,
+      'Философия': 5,
+      'Психология': 5
     },
     'Сивцов Илья': {
       'Математика': 3,
-      'Физика': 3,
-      'Программирование': 4,
-      'История': 3,
-      'Английский язык': 2
+      'БД': 3,
+      'Dart': 2,
+      'Философия': 3,
+      'Психология': 2
     },
     'Тупицын Сергей': {
       'Математика': 4,
-      'Физика': 4,
-      'Программирование': 4,
-      'История': 5,
-      'Английский язык': 4
+      'БД': 4,
+      'Dart': 4,
+      'Философия': 5,
+      'Психология': 4
     },
     'Москаленко Максим': {
-      'Математика': 2,
-      'Физика': 3,
-      'Программирование': 3,
-      'История': 3,
-      'Английский язык': 3
+      'Математика': 5,
+      'БД': 4,
+      'Dart': 5,
+      'Философия': 5,
+      'Психология': 5
     }
   };
   
@@ -123,7 +123,7 @@ void countGrades(Map<String, Map<String, int>> grades) {
   
   grades.forEach((student, subjects) {
     subjects.forEach((subject, grade) {
-      gradeCount[grade] += 1;
+      gradeCount[grade] = (gradeCount[grade] ?? 0) + 1;
     });
   });
   
@@ -143,7 +143,7 @@ void studentsWithFivesBySubject(List<String> subjects, Map<String, Map<String, i
       }
     });
     
-    print('$subject:');
+    print('\n$subject:');
     studentsWithFive.isEmpty ? print('  Нет студентов с оценкой 5') : studentsWithFive.forEach((student) => print('$student'));
   }
 }
@@ -181,7 +181,7 @@ void subjectWithMostTwos(List<String> subjects, Map<String, Map<String, int>> gr
   grades.forEach((student, studentGrades) {
     studentGrades.forEach((subject, grade) {
       if (grade == 2) {
-        twoCounts[subject] += 1;
+        twoCounts[subject] = (twoCounts[subject] ?? 0) + 1;
       }
     });
   });
@@ -251,7 +251,7 @@ void subjectsBelowFour(List<String> students, List<String> subjects, Map<String,
       }
     });
     
-    print('$student:');
+    print('\n$student:');
     if (lowGradeSubjects.isEmpty) {
       print('Нет предметов с оценкой ниже 4');
     } else {
@@ -264,15 +264,19 @@ void subjectsBelowFour(List<String> students, List<String> subjects, Map<String,
 // 8
 void allFivePairs(List<String> students, List<String> subjects, Map<String, Map<String, int>> grades) {
   bool hasFives = false;
-  
+  bool oneFive = true;
+
   for (var student in students) {
-    
+    if (oneFive) print('');
+    oneFive = false;
     grades[student]!.forEach((subject, grade) {
       if (grade == 5) {
         print('$student — $subject');
         hasFives = true;
+        oneFive = true;
       }
     });
+    
   }
   
   if (!hasFives) {
