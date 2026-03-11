@@ -77,8 +77,8 @@ void main() {
       case 4: subjectsWithoutTwos(subjects, grades);
       case 5: subjectWithMostTwos(students, grades);
       case 6: studentsWithMostFives(students, grades);
-      case 7: subjectsBelowFour(students, subjects, grades);
-      case 8: allFivePairs(students, subjects, grades);
+      case 7: subjectsBelowFour(students, grades);
+      case 8: allFivePairs(students, grades);
     }
   }
 }
@@ -240,7 +240,7 @@ void studentsWithMostFives(List<String> students, Map<String, Map<String, int>> 
 }
 
 // 7
-void subjectsBelowFour(List<String> students, List<String> subjects, Map<String, Map<String, int>> grades) {
+void subjectsBelowFour(List<String> students, Map<String, Map<String, int>> grades) {
   for (var student in students) {
     
     final List<String> lowGradeSubjects = [];
@@ -262,7 +262,7 @@ void subjectsBelowFour(List<String> students, List<String> subjects, Map<String,
 }
 
 // 8
-void allFivePairs(List<String> students, List<String> subjects, Map<String, Map<String, int>> grades) {
+void allFivePairs(List<String> students, Map<String, Map<String, int>> grades) {
   bool hasFives = false;
   bool oneFive = true;
 
@@ -276,7 +276,6 @@ void allFivePairs(List<String> students, List<String> subjects, Map<String, Map<
         oneFive = true;
       }
     });
-    
   }
   
   if (!hasFives) {
